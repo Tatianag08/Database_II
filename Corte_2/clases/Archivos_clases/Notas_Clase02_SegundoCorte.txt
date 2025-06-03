@@ -1,0 +1,121 @@
+C:\Users\tatia\OneDrive\Escritorio
+
+Ejercicios
+
+Crear una lista que me enliste tres tareas con el título y el estado de la tarea
+Agregar tres tareas más junto a sus datos, la prioridad y las etiquetas también
+Crear dos tareas con prioridad alta
+Crear una vista para listar las tareas con prioridad alta (task_high)
+Eliminar Vista (Drow view [nombre])
+Una vista materializada que trae el titulo y el estado de todas las tareas
+Crear una tarea nueva 
+Después ejecutar la vista materializada (No deberían ver la última tarea)
+
+Glosario
+
+Cround job = Trabajo porgramado
+
+
+-------VISTAS MATERALIZADAS ------
+
+-Es como una foto (sacrifican rendimiento por disco).
+
+CREATE MATERiALIZED view
+[Column_name]
+Query
+[WITH [NO] DATA]
+
+REFRESH MATERIALIZED view_name
+[CONCURRENTLY] view_name   //Si se coloca este ---NO SON
+[WITH NO DATA]             //No se puede poner este --- COMPATIBLES
+
+
+------Apuntes-------
+
+
+tatia@LAPTOP-0SIGU6NE MINGW64 ~/OneDrive/Escritorio
+$ psql -U postgres
+Contraseña para usuario postgres:
+
+psql (16.8)
+ADVERTENCIA: El código de página de la consola (850) difiere del código
+            de página de Windows (1252).
+            Los caracteres de 8 bits pueden funcionar incorrectamente.
+            Vea la página de referencia de psql «Notes for Windows users»
+            para obtener más detalles.
+Digite «help» para obtener ayuda.
+
+postgres=# CREATE DATABASE Tareas;
+CREATE DATABASE
+
+tatia@LAPTOP-0SIGU6NE MINGW64 ~/OneDrive/Escritorio
+$ psql -U postgres -d tareas -f /c/Users/tatia/OneDrive/Escritorio/TodoList.sql
+Contraseña para usuario postgres:
+
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1
+INSERT 0 1
+CREATE TABLE
+INSERT 0 3
+ALTER TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+
+tatia@LAPTOP-0SIGU6NE MINGW64 ~/OneDrive/Escritorio
+$ psql -U postgres
+Contraseña para usuario postgres:
+
+psql (16.8)
+ADVERTENCIA: El código de página de la consola (850) difiere del código
+            de página de Windows (1252).
+            Los caracteres de 8 bits pueden funcionar incorrectamente.
+            Vea la página de referencia de psql «Notes for Windows users»
+            para obtener más detalles.
+Digite «help» para obtener ayuda.
+
+postgres=# \l
+                                                       Listado de base de datos
+  Nombre   |  Due±o   | Codificaci¾n | Proveedor de locale | Collate | Ctype | configuraci¾n ICU | Reglas ICU: |      Privilegios
+-----------+----------+--------------+---------------------+---------+-------+-------------------+-------------+-----------------------
+ agenda    | postgres | UTF8         | libc                | es-CO   | es-CO |                   |             |
+ postgres  | postgres | UTF8         | libc                | es-CO   | es-CO |                   |             |
+ tareas    | postgres | UTF8         | libc                | es-CO   | es-CO |                   |             |
+ template0 | postgres | UTF8         | libc                | es-CO   | es-CO |                   |             | =c/postgres          +
+           |          |              |                     |         |       |                   |             | postgres=CTc/postgres
+ template1 | postgres | UTF8         | libc                | es-CO   | es-CO |                   |             | =c/postgres          +
+           |          |              |                     |         |       |                   |             | postgres=CTc/postgres
+(5 filas)
+
+
+postgres=# SELECT titulo, estado FROM tareas LIMIT 3;
+ERROR:  no existe la relación «tareas»
+LÍNEA 1: SELECT titulo, estado FROM tareas LIMIT 3;
+                                    ^
+postgres=# \q
+
+tatia@LAPTOP-0SIGU6NE MINGW64 ~/OneDrive/Escritorio
+$ psql -U postgres -d tareas
+Contraseña para usuario postgres:
+
+psql (16.8)
+ADVERTENCIA: El código de página de la consola (850) difiere del código
+            de página de Windows (1252).
+            Los caracteres de 8 bits pueden funcionar incorrectamente.
+            Vea la página de referencia de psql «Notes for Windows users»
+            para obtener más detalles.
+Digite «help» para obtener ayuda.
+
+tareas=# SELECT titulo, estado FROM tareas LIMIT 3;
+          titulo          |  estado
+--------------------------+-----------
+ Terminar reporte mensual | pendiente
+(1 fila)
+
+
+tareas=# INSERT INTO tareas (titulo, descripcion, estado, fecha_limite, usuario_id, prioridad_id) VALUES ('Preparar presentación', 'Crear Diapositivas para la reunión', 'en
+_progreso', '2025-05-18', 1, 2), --media ('Actualizar base de datos', 'Agregar nuevos registros', 'pendiente', '2025-03-22', 1, 1), --baja ('Hacer revision de la cañidad de
+l código', pendiente', 2025-01-22', 1, 3); --alta
+tareas-# INSERT INTO etiquetas (nombre) VALUES ('urgente'), ('documentacion'), ('revision') ON CONFLICT
+tareas-# \q

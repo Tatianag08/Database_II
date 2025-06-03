@@ -1,0 +1,119 @@
+CREATE TABLE nombre_indice ON Nombre_tabla USING Método
+
+- BTREE
+- HASH
+- GIST
+
+(
+   nombre de la columna
+)
+
+
+DROP INDEX CONCURRENTLY nombre_indice
+[CASCADE [RESTRICT]]
+
+----Ejemplo----
+
+CREATE INDEX index_user_name ON users( 
+  name 
+);
+
+
+Para hacer transacciones se deben tener en cuenta:
+
+---Características de las transacciones---
+
+1. Atomicidad: Todas las operaciones se consideran una sola.
+2. Consistencia: Integridad de la información.
+3. Aislamiento: Funciona de manera aislada en cada sesión.
+4. Durabilidad: Temporal si hacemos rollback, permanente si hacemos commit.
+
+---SINTAXIS---
+
+BEGIN; --Inicia la transición--
+ --Sentencias SQL que necesitemos
+ROLLBACK;
+COMMIT;
+
+--Transición para hacer pruebas
+BEGIN;
+--Sentencias
+ROLLBACK;
+
+--Transición definitiva
+BEGIN;
+--Sentencias
+COMMIT;
+
+---Ejemplo---
+
+BEGIN;
+INSERT INTO tasks( title, summary, created_date, limit_date, Uid, pid)
+VALUES ('tareas de transaccion', 'Es una tarea de transaccion', '2025-05-14', '2025-05 -25', 2, 1);
+
+SELECT * FROM tasks ORDER BY tid DESC LIMIT 1;
+
+COMMIT; //Si todo está bien
+
+INSERT INTO task_tags(tid, tgid)
+VALUES ((SELECT MAX(tid) FROM tasks),1);
+
+SELECT * FROM task_tags WHERE tid = (SELECT MAX(tid) FROM tasks)
+
+ROLLBACK;
+COMMIT;
+
+--- Ejercicio---
+Hacer una transacción que permita transferir una tarea de un usuario a otro
+1. Transferir tarea de un usuario a otro usuario.
+2. Clonar una tarea incluyendo las etiquetas. 
+
+------TABLAS TEMPORALES-------
+
+-Nivel de Sesión.
+-Nivel de Transacción.
+
+---SINTAXIS---
+
+CREATE (TEMPORARY | TEMP) TABLE nombre_table
+ (COLUMN)
+ [ON COMMIT (preserve rows | delete row | DROP)]
+
+- PRESERVE ROES y DELETE ROWS "Son opciones para indicar que las tablas con temporales en una sesión".
+
+-DROP "Indica que la tabla es temporal en una transacción".
+
+
+---SINTAXIS EN CONSULTA---
+
+CREATE (TEMPORARY | TEMP) TABLE nombre_table
+[ON COMMIT (preserve rows | delete row | DROP)]
+AS
+--Query
+[WITH [NO] DATA];
+
+---EJERCICIO---
+
+//OJO CON EL AUTO COMMIT
+
+CREATE TEMPORARY TABLE temporal1 (
+ tuno_id INT,
+ tuno_data VARCHAR(255)
+) ON COMMIT DELETE ROWS;
+
+INSERT INTO temporal1
+(tuno_id, tuno_data)
+VALUES (2, 'dato 2 temporal 1');
+
+INSERT INTO temporal1(tuno_id, tuno_data)
+ VALUES (2, 'dato 2 temporal 1');
+
+-----TAREA-----
+
+1. Crear una tabla temporal con todas la tareas de prioridad media y que muestre el nombre de la prioridad (NO EL ID) y debemos crear una tabla temporal de esa consulta. HACERLO DENTRO DE UNA TRANSACCIÓN.
+
+
+
+
+
+

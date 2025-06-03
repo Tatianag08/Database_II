@@ -1,0 +1,129 @@
+--Sacar el promedio del monto 
+
+select
+ avg(monto), metodo
+from pagos p
+where metodo <> 'transferencia'
+group by metodo;
+
+--¿Cuántos productos hay por categoría? Menos de 50
+
+select c.nombre, count (p.producto_id) cantidad
+from productos p
+inner join categorias c on p.categoria_id = c.categoria_id
+group by c.nombre
+having count(p.producto_id) > 50;
+
+-- Que solo me muestre las categorías beauty o computers 
+
+select c.nombre, count (p.producto_id) cantidad
+from productos p
+inner join categorias c on p.categoria_id = c.categoria_id
+where c.nombre = 'Beauty' or c.nombre = 'Computers'
+group by c.nombre
+having count(p.producto_id) > 50;
+
+select c.nombre, count (p.producto_id) cantidad
+from productos p
+inner join categorias c on p.categoria_id = c.categoria_id
+where c.nombre in ('Beauty', 'Computers')
+group by c.nombre
+having count(p.producto_id) > 50;
+
+select c.nombre, count (p.producto_id) cantidad
+from productos p
+inner join categorias c on p.categoria_id = c.categoria_id
+where c.nombre not in ('Beauty', 'Computers')
+group by c.nombre
+having count(p.producto_id) > 50;
+
+--Cuantos productos hay en inventario y en qué categoría están
+
+select c.nombre Categoria, p.nombre, i.cantidad
+from inventario i
+inner join productos p on i.producto_id = p.producto_id
+inner join categorias c on c.categoria_id = p.categoria_id 
+order by c.nombre desc, p.nombre desc;
+
+select c.nombre Categoria, p.nombre, i.cantidad
+from inventario i
+inner join productos p on i.producto_id = p.producto_id
+inner join categorias c on c.categoria_id = p.categoria_id 
+order by c.nombre asc, p.nombre desc, i.cantidad asc;
+
+select c.nombre Categoria, p.nombre, i.cantidad
+from inventario i
+inner join productos p on i.producto_id = p.producto_id
+inner join categorias c on c.categoria_id = p.categoria_id 
+order by i.cantidad asc;
+
+
+-- cuantos productos por categoria hay en inventario
+
+select  c.nombre Categoria, sum(i.cantidad) total
+from inventario i 
+inner join productos p on i.producto_id = p.producto_id
+inner join categorias c on c.categoria_id = p.categoria_id 
+group by c.nombre
+order by c.nombre asc;
+
+--Traer el producto que más tiene en el inventario y que menos tiene en el inventario
+
+select p.nombre producto, i.cantidad 
+from inventario i
+inner join productos p on i.producto_id = p.producto_id
+where i.cantidad = (select max(cantidad) from inventario) --Sub consultas
+or i.cantidad = (select min(cantidad) from inventario) --Sub consultas
+order by i.cantidad asc ;
+
+--Traer las cantidad de reseñas que tenga una calificacion superior a tres
+--Cuantas son de cuatro estrellas y cuantas son de cinco estrellas
+
+select count(r.resena_id), calificacion
+from resenas r 
+where calificacion > 3
+group by calificacion;
+
+--Productos con una calificación menor a tres
+
+select avg (calificacion), p.nombre
+from resenas r 
+inner join productos p on r.producto_id = p.producto_id
+group by p.nombre
+having avg(calificacion) < 3
+order by avg (calificacion);
+
+-- Contar cuántos usuarios han dejado reseñas de cinco --209
+
+select count(r.user_id) 
+from usuarios u
+inner join resenas r on r.user_id = u.user_id
+where r.calificacion = 5;
+
+-- Cuantos usuarios han dejado más de una reseña --- 271
+
+select u.nombre, count (r.user_id)
+from usuarios u
+inner join resenas r on r.user_id = u.user_id
+group by u.nombre
+having count(u.user_id) > 1;
+
+--La fecha del pedido por el monto más alto -- 2025/11/24
+
+select p.fecha_pedido, g.monto 
+from pedidos p
+inner join pagos g on g.pedido_id = p.pedido_id
+where monto = (select max(monto) from pagos);
+
+-- Vamos a listar todos los productos que han sido pedidos en el 2025 y    --162
+-- se han pagado por transferencia
+
+select p.nombre, p2.fecha_pedido, p3.metodo
+from productos p
+inner join detalles_pedido dp on p.producto_id = dp.producto_id 
+inner join pedidos p2 on p2.pedido_id = dp.pedido_id 
+inner join pagos p3 on p3.pedido_id = p2.pedido_id 
+inner join pagos p3 on p3.pedido_id = p2.pedido_id 
+where p2.fecha_pedido between '01-01-2025' and '31 -12-2025'
+and p3.metodo = 'transferencia'
+order by p2.fecha_pedido;

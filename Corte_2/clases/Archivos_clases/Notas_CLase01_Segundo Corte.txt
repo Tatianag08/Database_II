@@ -1,0 +1,336 @@
+
+tatia@LAPTOP-0SIGU6NE MINGW64 ~/OneDrive/Escritorio
+$ psql -U postgres
+Contraseña para usuario postgres:
+
+psql (16.8)
+ADVERTENCIA: El código de página de la consola (850) difiere del código
+            de página de Windows (1252).
+            Los caracteres de 8 bits pueden funcionar incorrectamente.
+            Vea la página de referencia de psql «Notes for Windows users»
+            para obtener más detalles.
+Digite «help» para obtener ayuda.
+
+postgres=# CREATE USER Tatianag0812 WITH PASSWORD '12345678';
+CREATE ROLE
+postgres=# \q
+
+
+tatia@LAPTOP-0SIGU6NE MINGW64 ~/OneDrive/Escritorio
+$ psql -h 20.151.233.26 -p 5432 -U remote3 -d postgres
+Contraseña para usuario remote3:
+
+psql (16.8)
+ADVERTENCIA: El código de página de la consola (850) difiere del código
+            de página de Windows (1252).
+            Los caracteres de 8 bits pueden funcionar incorrectamente.
+            Vea la página de referencia de psql «Notes for Windows users»
+            para obtener más detalles.
+Conexión SSL (protocolo: TLSv1.3, cifrado: TLS_AES_256_GCM_SHA384, compresión: desactivado)
+Digite «help» para obtener ayuda.
+
+postgres=# \du
+                               Lista de roles
+ Nombre de rol |                         Atributos
+---------------+------------------------------------------------------------
+ postgres      | Superusuario, Crear rol, Crear BD, Replicaci¾n, Ignora RLS
+ remote1       | Superusuario
+Conexión SSL (protocolo: TLSv1.3, cifrado: TLS_AES_256_GCM_SHA384, compresión: d
+esactivado)
+Digite «help» para obtener ayuda.
+
+postgres=# \du
+                               Lista de roles
+ Nombre de rol |                         Atributos
+---------------+------------------------------------------------------------
+ postgres      | Superusuario, Crear rol, Crear BD, Replicaci¾n, Ignora RLS
+ remote1       | Superusuario
+ remote10      | Superusuario
+ remote11      | Superusuario
+ remote12      | Superusuario
+ remote2       | Superusuario
+ remote3       | Superusuario
+ remote4       | Superusuario
+ remote5       | Superusuario
+ remote6       | Superusuario
+ remote7       | Superusuario
+ remote8       | Superusuario
+ remote9       | Superusuario
+
+
+postgres=# CREATE DATABASE Tga_Constactos;
+CREATE DATABASE
+postgres=# DROP DATABASE Tga_Constactos;
+DROP DATABASE
+postgres=# CREATE DATABASE Tga_Contacts;
+CREATE DATABASE
+postgres=# \d
+No se encontró ninguna relación.
+postgres=# CREATE SCHEMA Contactos;
+CREATE SCHEMA
+postgres=# CREATE TABLE Contactos (cid SERIAL PRIMARY KEY, name TEXT NOT NULL, phone TEXT, email TEXT, summary TEXT, nickname TEXT, address TEXT);
+ERROR:  relation "contactos" already exists
+postgres=# CREATE TABLE Contacts (cid SERIAL PRIMARY KEY, name TEXT NOT NULL, phone TEXT, email TEXT, summary TEXT, nickname TEXT, address TEXT);
+CREATE TABLE/
+postgres=# GRANT ALL PRIVILEGES ON DATABASE Tga_Contacts TO remote3;
+GRANT
+postgres=# \l
+                                                            Listado de base de datos
+      Nombre       |  Due±o   | Codificaci¾n | Proveedor de locale | Collate |  Ctype  | configuraci¾n ICU | Reglas ICU: |      Privilegios
+-------------------+----------+--------------+---------------------+---------+---------+-------------------+-------------+-----------------------
+ KGRM              | remote8  | UTF8         | libc                | C.UTF-8 | C.UTF-8 |                   |             |
+ fabio_db_contacts | remote6  | UTF8         | libc                | C.UTF-8 | C.UTF-8 |                   |             |
+ jet_contactos     | remote4  | UTF8         | libc                | C.UTF-8 | C.UTF-8 |                   |             | =Tc/remote4          +
+                   |          |              |                     |         |         |                   |             | remote4=CTc/remote4
+ jj_contactos      | remote10 | UTF8         | libc                | C.UTF-8 | C.UTF-8 |                   |             |
+ jjm_contactos     | remote5  | UTF8         | libc                | C.UTF-8 | C.UTF-8 |                   |             | =Tc/remote5          +
+                   |          |              |                     |         |         |                   |             | remote5=CTc/remote5
+ jm_clase          | remote7  | UTF8         | libc                | C.UTF-8 | C.UTF-8 |                   |             |
+ jowi_contactos    | remote9  | UTF8         | libc                | C.UTF-8 | C.UTF-8 |                   |             |
+ mrlh_contacts     | remote1  | UTF8         | libc                | C.UTF-8 | C.UTF-8 |                   |             |
+ once              | remote11 | UTF8         | libc                | C.UTF-8 | C.UTF-8 |                   |             |
+ postgres          | postgres | UTF8         | libc                | C.UTF-8 | C.UTF-8 |                   |             |
+ template0         | postgres | UTF8         | libc                | C.UTF-8 | C.UTF-8 |                   |             | =c/postgres          +
+                   |          |              |                     |         |         |                   |             | postgres=CTc/postgres
+ template1         | postgres | UTF8         | libc                | C.UTF-8 | C.UTF-8 |                   |             | =c/postgres          +
+                   |          |              |                     |         |         |                   |             | postgres=CTc/postgres
+ tga_contacts      | remote3  | UTF8         | libc                | C.UTF-8 | C.UTF-8 |                   |             | =Tc/remote3          +
+                   |          |              |                     |         |         |                   |             | remote3=CTc/remote3
+ wo                | remote2  | UTF8         | libc                | C.UTF-8 | C.UTF-8 |                   |             |
+(14 filas)
+
+
+
+postgres=# \du
+postgres=# \q
+
+tatia@LAPTOP-0SIGU6NE MINGW64 ~/OneDrive/Escritorio
+$ psql -h 20.151.233.26 -p 5432 -U remote3 -d postgres
+Contraseña para usuario remote3:
+
+psql (16.8)
+ADVERTENCIA: El código de página de la consola (850) difiere del código
+            de página de Windows (1252).
+            Los caracteres de 8 bits pueden funcionar incorrectamente.
+            Vea la página de referencia de psql «Notes for Windows users»
+            para obtener más detalles.
+Conexión SSL (protocolo: TLSv1.3, cifrado: TLS_AES_256_GCM_SHA384, compresión: desactivado)
+Digite «help» para obtener ayuda.
+
+postgres=# DROP SCHEMA Contactos;
+DROP SCHEMA
+postgres=# CREATE SCHEMA Tga_Contactos;
+CREATE SCHEMA
+postgres=# CREATE TABLE tg_Contactos(tga_cid SERIAL PRIMARY KEY, name TEXT, phone TEXT);
+CREATE TABLE
+postgres=# CREATE USER Tatianag WITH PASSWORD '12345';
+CREATE ROLE
+
+postgres=# \du
+                                Lista de roles
+  Nombre de rol  |                         Atributos
+-----------------+------------------------------------------------------------
+ postgres        | Superusuario, Crear rol, Crear BD, Replicaci¾n, Ignora RLS
+ r10_user_schema |
+ r10_user_table  |
+ r11_user_schema |
+ r1_user_schema  |
+ r6_user_schema  |
+ r7_user_schema  |
+ r9_user_schema  |
+ remote1         | Superusuario
+ remote10        | Superusuario
+ remote11        | Superusuario
+ remote12        | Superusuario
+ remote2         | Superusuario
+ remote2_prueba  |
+ remote3         | Superusuario
+ remote4         | Superusuario
+ remote5         | Superusuario
+ remote6         | Superusuario
+ remote7         | Superusuario
+ remote8         | Superusuario
+ remote9         | Superusuario
+ tatianag        |
+
+
+postgres=# DROP USER tatianag;
+DROP ROLE
+postgres=# \du
+                                Lista de roles
+  Nombre de rol  |                         Atributos
+-----------------+------------------------------------------------------------
+ postgres        | Superusuario, Crear rol, Crear BD, Replicaci¾n, Ignora RLS
+ r10_user_schema |
+ r10_user_table  |
+ r11_user_schema |
+ r1_user_schema  |
+ r1_user_table   |
+ r6_user_schema  |
+ r7_user_schema  |
+ r9_user_schema  |
+ r9_user_table   |
+ remote1         | Superusuario
+ remote10        | Superusuario
+ remote11        | Superusuario
+ remote12        | Superusuario
+ remote2         | Superusuario
+ remote2_prueba  |
+ remote3         | Superusuario
+ remote4         | Superusuario
+ remote5         | Superusuario
+ remote6         | Superusuario
+ remote7         | Superusuario
+ remote8         | Superusuario
+ remote9         | Superusuario
+
+
+postgres=# \l
+                                                             Listado de base de datos
+     Nombre     |  Due±o   | Codificaci¾n | Proveedor de locale | Collate |  Ctype  | configuraci¾n ICU | Reglas ICU: |        Privilegios
+----------------+----------+--------------+---------------------+---------+---------+-------------------+-------------+----------------------------
+ KGRM           | remote8  | UTF8         | libc                | C.UTF-8 | C.UTF-8 |                   |             |
+ cp_contactos   | remote11 | UTF8         | libc                | C.UTF-8 | C.UTF-8 |                   |             | =Tc/remote11              +
+                |          |              |                     |         |         |                   |             | remote11=CTc/remote11     +
+                |          |              |                     |         |         |                   |             | r11_user_schema=c/remote11
+ fdv_contacts   | remote6  | UTF8         | libc                | C.UTF-8 | C.UTF-8 |                   |             |
+ gjna_contactos | remote3  | UTF8         | libc                | C.UTF-8 | C.UTF-8 |                   |             |
+ jet_contactos  | remote4  | UTF8         | libc                | C.UTF-8 | C.UTF-8 |                   |             | =Tc/remote4               +
+                |          |              |                     |         |         |                   |             | remote4=CTc/remote4
+ jj_contactos   | remote10 | UTF8         | libc                | C.UTF-8 | C.UTF-8 |                   |             |
+ jjm_contactos  | remote5  | UTF8         | libc                | C.UTF-8 | C.UTF-8 |                   |             | =Tc/remote5               +
+                |          |              |                     |         |         |                   |             | remote5=CTc/remote5
+ jm_contactos   | remote7  | UTF8         | libc                | C.UTF-8 | C.UTF-8 |                   |             |
+ jowi_contactos | remote9  | UTF8         | libc                | C.UTF-8 | C.UTF-8 |                   |             | =Tc/remote9               +
+                |          |              |                     |         |         |                   |             | remote9=CTc/remote9       +
+                |          |              |                     |         |         |                   |             | r9_user_schema=c/remote9
+ mrlh_contacts  | remote1  | UTF8         | libc                | C.UTF-8 | C.UTF-8 |                   |             | =Tc/remote1               +
+                |          |              |                     |         |         |                   |             | remote1=CTc/remote1
+ once           | remote11 | UTF8         | libc                | C.UTF-8 | C.UTF-8 |                   |             |
+ postgres       | postgres | UTF8         | libc                | C.UTF-8 | C.UTF-8 |                   |             |
+ template0      | postgres | UTF8         | libc                | C.UTF-8 | C.UTF-8 |                   |             | =c/postgres               +
+                |          |              |                     |         |         |                   |             | postgres=CTc/postgres
+ template1      | postgres | UTF8         | libc                | C.UTF-8 | C.UTF-8 |                   |             | =c/postgres               +
+                |          |              |                     |         |         |                   |             | postgres=CTc/postgres
+ tga_contacts   | remote3  | UTF8         | libc                | C.UTF-8 | C.UTF-8 |                   |             | =Tc/remote3               +
+                |          |              |                     |         |         |                   |             | remote3=CTc/remote3
+ wo             | remote2  | UTF8         | libc                | C.UTF-8 | C.UTF-8 |                   |             | =Tc/remote2               +
+                |          |              |                     |         |         |                   |             | remote2=CTc/remote2       +
+                |          |              |                     |         |         |                   |             | remote2_prueba=c/remote2
+(16 filas)
+
+
+postgres=# SELECT current_user;
+ current_user
+--------------
+ remote3
+(1 fila)
+
+
+postgres=# CREATE USER r3_user_Schema WITH PASSWORD '12345';
+CREATE ROLE
+postgres=# SHOW search_path;
+   search_path
+-----------------
+ "$user", public
+(1 fila)
+
+
+postgres=# GRANT CONNECT ON tga_contacts to r3_user_Schema;
+ERROR:  relation "tga_contacts" does not exist
+postgres=# GRANT USAGE ON SCHEMA "Tga_Contactos" TO r3_user_Schema;
+ERROR:  schema "Tga_Contactos" does not exist
+postgres=# SELECT Tga_Contactos FROM information_schema.schemata;
+ERROR:  column "tga_contactos" does not exist
+LÍNEA 1: SELECT Tga_Contactos FROM information_schema.schemata;
+                ^
+postgres=# SELECT schema_name FROM information_schema.schemata;
+postgres=# SELECT schema_name FROM information_schema.schemata;
+    schema_name
+--------------------
+ public
+ information_schema
+ pg_catalog
+ pg_toast
+ gjna_contac
+ tga_contactos
+ st4_public
+ sr6_public
+ sr7_public
+(9 filas)
+
+
+postgres=# GRANT USAGE ON SCHEMA "tga_contactos" To r3_user_Schema;
+GRANT
+postgres=# CREATE USER r3_user_table WITH PASSWORD '12345';
+CREATE ROLE
+postgres=# SELECT table_schema, table_name FROM information_schema.tables WHERE table_name = 'tg_Contactos';
+ table_schema | table_name
+--------------+------------
+(0 filas)
+
+
+tatia@LAPTOP-0SIGU6NE MINGW64 ~/OneDrive/Escritorio
+$ psql -h 20.151.233.26 -p 5432 -U remote3 -d postgres
+Contraseña para usuario remote3:
+
+psql (16.8)
+ADVERTENCIA: El código de página de la consola (850) difiere del código
+            de página de Windows (1252).
+            Los caracteres de 8 bits pueden funcionar incorrectamente.
+            Vea la página de referencia de psql «Notes for Windows users»
+            para obtener más detalles.
+Conexión SSL (protocolo: TLSv1.3, cifrado: TLS_AES_256_GCM_SHA384, compresión: desactivado)
+Digite «help» para obtener ayuda.
+
+postgres=# \du
+                                Lista de roles
+  Nombre de rol   |                         Atributos
+------------------+------------------------------------------------------------
+ gjna_user        |
+ postgres         | Superusuario, Crear rol, Crear BD, Replicaci¾n, Ignora RLS
+ r10_user_schema  |
+ r10_user_table   |
+ r11_user_schema  |
+ r11_user_schema2 |
+ r1_user_schema   |
+ r1_user_table    |
+ r3_user_schema   |
+ r3_user_table    |
+ r6_user_schema   |
+ r6_user_table    |
+ r7_user_schema   |
+ r9_user_schema   |
+ r9_user_table    |
+ remote1          | Superusuario
+ remote10         | Superusuario
+ remote11         | Superusuario
+ remote12         | Superusuario
+ remote2          | Superusuario
+ remote2_prueba   |
+ remote3          | Superusuario
+ remote4          | Superusuario
+ remote5          | Superusuario
+ remote6          | Superusuario
+ remote7          | Superusuario
+ remote8          | Superusuario
+ remote9          | Superusuario
+
+
+postgres=# \dt
+          Listado de relaciones
+ Esquema |    Nombre    | Tipo  |  Due±o
+---------+--------------+-------+---------
+ public  | contac       | tabla | remote3
+ public  | contactos5   | tabla | remote5
+ public  | contacts     | tabla | remote3
+ public  | gjna_tabla   | tabla | remote3
+ public  | tg_contactos | tabla | remote3
+(5 filas)
+
+
+postgres=# GRANT SELECT ON ALL TABLES IN SCHEMA public TO r3_user_schema;
+GRANT
+postgres=# GRANT USAGE ON SCHEMA public TO r3_user_schema;
+GRANT
+postgres=#
