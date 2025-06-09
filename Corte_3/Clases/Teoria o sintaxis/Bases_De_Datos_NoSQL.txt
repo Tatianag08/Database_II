@@ -1,0 +1,64 @@
+/*NoSql
+
+-Flexibles
+-Nulos
+-Podemos tener datos redundantes
+
+#Motores noSQL
+
+-Mongo
+-Cassandra
+-Redis
+-Comos
+-Firebase
+
+Conversion de SQL a NoSql
+-Fila --> Documento
+	Restriccion:no deve pesar menos de 16mb
+-Tabla --> Coleccion
+	Restriccion: Si no ahi documento no existe coleccion
+-Data Base
+	Restriccion: si no ahi coleccion no existe db
+
+
+##### 1 Documento ####
+## Creamos una fila
+
+var User{
+	name:"ana",
+	email:"ana@email.com",
+	register_date:"01/01/01",
+	country:"Colombia"
+}
+
+
+Use todolist # ubicarse en la base de datos
+##insertar documento y crear la coleccion
+todolist > todolist.user.insert(user)
+
+## Comandos basicos ##
+
+show database #-->mirar todas las bases de datos que tenemos
+db.getname #--> obtener la base de datos actual
+
+*/
+
+Operadores relacionales
+
+$ne = no son iguales
+$eq = iguales
+$gt = mayor que
+$gte = mayorigual
+$lt = menor que
+$lte = menor iguales
+
+
+Operadores logicos
+
+$and
+$Or
+
+$and[
+	{country:{$eq:"colombia}}
+	{name:{$ne:"ana"}}
+]
