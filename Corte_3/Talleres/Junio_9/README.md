@@ -86,8 +86,8 @@ El archivo consultas_operadores.json permite poner en práctica el uso de MongoD
 
 |           Archivo         |                                                           Descripción                                                              |
 |---------------------------|------------------------------------------------------------------------------------------------------------------------------------|
-|   `insert_operadores.js`  |     Script para insertar documentos en las colecciones `logicos` y `relacionales`. Contiene ejemplos, sintaxis y descripciones.    |
-| `consultas_operadores.js` | Contiene ejemplos prácticos de consultas para explorar la base de datos creada. Ideal para practicar filtros, búsquedas y conteos. |
+|   `insert_operadores.json`  |     Script para insertar documentos en las colecciones `logicos` y `relacionales`. Contiene ejemplos, sintaxis y descripciones.    |
+| `consultas_operadores.json` | Contiene ejemplos prácticos de consultas para explorar la base de datos creada. Ideal para practicar filtros, búsquedas y conteos. |
 
 
 ## Requisitos
