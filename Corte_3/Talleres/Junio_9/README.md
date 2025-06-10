@@ -62,11 +62,11 @@ Cada documento en estas colecciones contiene:
 
 ### 2. Inserción de operadores
 
-El archivo [`insert_operadores.js`](insert_operadores.js) contiene scripts para insertar los operadores con su información semántica y estructurada. Esto permite utilizar la base como recurso de consulta o entrenamiento.
+El archivo insert_operadores.json contiene scripts para insertar los operadores con su información semántica y estructurada. Esto permite utilizar la base como recurso de consulta o entrenamiento.
 
 ### 3. Consultas prácticas
 
-El archivo [`consultas_operadores.js`](consultas_operadores.js) permite poner en práctica el uso de MongoDB mediante consultas como:
+El archivo consultas_operadores.json permite poner en práctica el uso de MongoDB mediante consultas como:
 
 - Búsquedas por nombre exacto (`titulo`).
 - Filtros por contenido textual (uso de expresiones regulares en `descripcion`).
