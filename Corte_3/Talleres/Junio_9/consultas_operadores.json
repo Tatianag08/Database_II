@@ -1,0 +1,54 @@
+{
+  "logicos": [
+    {
+      "descripcion": "Obtener todos los operadores lógicos",
+      "consulta": { "find": {}, "projection": null }
+    },
+    {
+      "descripcion": "Buscar operador lógico por título exacto",
+      "consulta": { "find": { "titulo": "$nor" }, "projection": null }
+    },
+    {
+      "descripcion": "Operadores lógicos cuya descripción mencione 'documentos'",
+      "consulta": { "find": { "descripcion": { "$regex": "documentos" } }, "projection": null }
+    },
+    {
+      "descripcion": "Proyección: mostrar solo título y tipo (sin _id)",
+      "consulta": { "find": {}, "projection": { "titulo": 1, "tipo": 1, "_id": 0 } }
+    },
+    {
+      "descripcion": "Operadores lógicos cuyo título contenga una letra 'o'",
+      "consulta": { "find": { "titulo": { "$regex": "o" } }, "projection": null }
+    },
+    {
+      "descripcion": "Contar operadores lógicos registrados",
+      "consulta": { "countDocuments": {} }
+    }
+  ],
+  "relacionales": [
+    {
+      "descripcion": "Obtener todos los operadores relacionales",
+      "consulta": { "find": {}, "projection": null }
+    },
+    {
+      "descripcion": "Buscar operador relacional por título",
+      "consulta": { "find": { "titulo": "$gte" }, "projection": null }
+    },
+    {
+      "descripcion": "Buscar operadores relacionales cuya descripción hable de 'valores'",
+      "consulta": { "find": { "descripcion": { "$regex": "valores" } }, "projection": null }
+    },
+    {
+      "descripcion": "Mostrar solo los campos título y tipo",
+      "consulta": { "find": {}, "projection": { "titulo": 1, "tipo": 1, "_id": 0 } }
+    },
+    {
+      "descripcion": "Buscar operadores relacionales cuyo título termine en \"e\"",
+      "consulta": { "find": { "titulo": { "$regex": "e$" } }, "projection": null }
+    },
+    {
+      "descripcion": "Contar documentos en la colección relacionales",
+      "consulta": { "countDocuments": {} }
+    }
+  ]
+}
