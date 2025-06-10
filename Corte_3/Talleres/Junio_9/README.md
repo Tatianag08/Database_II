@@ -12,14 +12,14 @@ Estos operadores permiten construir filtros precisos, ejecutar búsquedas comple
 
 Los operadores lógicos permiten combinar múltiples condiciones dentro de una consulta. Son clave para estructurar filtros avanzados y controlar la lógica de decisión que define qué documentos se deben recuperar.
 
-|----------|--------------------------------------------------------|------------------------------------------------------------|
+
 | Operador |                         Función                        |                      Ejemplo de uso                        |
 |----------|--------------------------------------------------------|------------------------------------------------------------|
 |  `$and`  |    Requiere que **todas las condiciones** se cumplan.  |          Buscar usuarios activos con edad ≥ 25.            |
 |  `$or`   |    Permite que **al menos una condición** se cumpla.   |  Buscar empleados del área de ventas o con salario > 4000. |
 |  `$not`  |       **Invierte** el resultado de una expresión.      |      Excluir documentos donde la puntuación sea ≤ 3.       |
 |  `$nor`  | Requiere que **ninguna** de las condiciones se cumpla. |    Buscar usuarios que no sean admin ni tengan acceso.     |
-|----------|--------------------------------------------------------|------------------------------------------------------------|
+
 
 - **Importancia práctica:** Estos operadores permiten adaptar las consultas a escenarios reales como filtros múltiples en paneles de administración, condiciones excluyentes, validaciones de negocio complejas, etc.
 
@@ -27,7 +27,7 @@ Los operadores lógicos permiten combinar múltiples condiciones dentro de una c
 
 Los operadores relacionales permiten **comparar valores** entre campos y criterios específicos. Son esenciales para evaluar igualdad, diferencias y rangos numéricos o textuales.
 
-|----------|----------------------------------------------------------------------|-------------------------------------------------------|
+
 | Operador |                                Función                               |                  Caso de uso típico                   |
 |----------|----------------------------------------------------------------------|-------------------------------------------------------|
 |   `$eq`  |     Verifica si un campo es **exactamente igual** al valor dado.     |         Buscar productos con nivel `"avanzado"`.      |
@@ -40,7 +40,7 @@ Los operadores relacionales permiten **comparar valores** entre campos y criteri
 |  `$nin`  |         Verifica que el valor **no** esté en una lista.              |  Usuarios que no sean `"visitante"` ni `"bloqueado"`. |
 | `$exists`|         Verifica si un campo **existe** en el documento.             |    Asegurar que el campo `email` esté presente.       |
 |  `$type` | Evalúa si el tipo de un campo corresponde a un tipo BSON específico. |         Validar que `fecha` sea tipo `"date"`.        |
-|----------|----------------------------------------------------------------------|-------------------------------------------------------|
+
 
 - **Importancia práctica:** Los operadores relacionales permiten modelar condiciones numéricas, filtros por presencia de campos, validaciones de tipos de datos y más, cruciales en dashboards, reportes y validaciones del backend.
 
@@ -83,12 +83,12 @@ El archivo [`consultas_operadores.js`](consultas_operadores.js) permite poner en
 
 ## Archivos del Taller
 
-|---------------------------|------------------------------------------------------------------------------------------------------------------------------------|
+
 |           Archivo         |                                                           Descripción                                                              |
 |---------------------------|------------------------------------------------------------------------------------------------------------------------------------|
 |   `insert_operadores.js`  |     Script para insertar documentos en las colecciones `logicos` y `relacionales`. Contiene ejemplos, sintaxis y descripciones.    |
 | `consultas_operadores.js` | Contiene ejemplos prácticos de consultas para explorar la base de datos creada. Ideal para practicar filtros, búsquedas y conteos. |
-|---------------------------|------------------------------------------------------------------------------------------------------------------------------------|
+
 
 ## Requisitos
 
