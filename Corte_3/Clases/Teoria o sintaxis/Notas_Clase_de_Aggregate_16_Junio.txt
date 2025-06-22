@@ -1,0 +1,285 @@
+Bases de Datos III - Documentos Anidados
+
+EJERCICIOS DE DOCUMENTOS ANIDADOS
+
+--- Para solo Pokemones de Planta
+
+TipoSemilla : {
+	
+	semilla1:  'Valor 1'
+	semilla2: 'Valor 2'
+
+
+--- Para todos los pokemones
+
+Coordenada : {
+ 	latitud: 1234
+	longitud: 3212
+}
+
+--- Utilizando el dot.natation 
+
+1. Listar el nombre de los Pokemons que esta en una latitud mayor a 2000
+
+
+ClASE - Nuevo Tema 
+
+Framework "Aggregate" -- Transformar, agregar
+
+1.
+2.
+3.
+
+Depende del otro
+
+Nota: Es diferente de Find() ----> Cursor
+Nota II: find One() -----> Objeto
+
+
+1. Vamos a buscar todos los pokemones que tienen un altura 
+
+
+db.pokemons.Find ( {
+
+	altura m : {
+		$eq : 0.5
+		}
+	}
+);
+
+y con aggregate
+
+db.pokemons.aggregate ([
+	{ $match: }
+		altura m : { $eq : 0.5}
+	}
+
+])
+
+2. Vamos a traer todos los pokemones que la descripción inicie con "U".
+
+db.pokemons.aggregate([
+	{ 
+	$match: {
+		descripción: {
+		$regex: '/^U/'
+		}
+	}
+},
+{
+	$project: {
+		_id: false, nombre: true
+		}
+	}
+}
+
+])
+
+3. Listar los pokemones que deben estar al menos en un juego o que tenga la lista Games.
+
+db.pokemons.aggregate ([ 
+  {
+	$match: {
+	   games: { $exists: true}
+	}
+  },
+  {
+	$project: {
+	  _id: false, nombre: true, game: true
+	}
+  }
+
+
+4. Ahora quiero que me devuelva solamente el primer juego
+
+db.pokemons.aggregate ([ 
+  {
+	$match: {
+	   games: { $exists: true}
+	}
+  },
+  {
+	$project: {
+	  _id: false, nombre: true, game: true
+	}
+  },
+  {
+	$project: {
+	  nombre: true,
+	  firtsGame
+         $slice: ['$games', 1]
+       }
+    }
+
+  }
+])
+
+5. Hacer una consulta que me muestre el peso de los pokemones y la fecha
+
+db.pokemons.aggregate ([
+  {
+	$project: {
+	  _id: false, nombre: true, peso_kg: true
+	}
+   }, 
+	{ $addFields: {
+	    fechahoy: new Date()
+	   }
+        }
+])
+
+
+----> Añadimos el operador Sum, para que sume los pesos y dé el promedio del peso. 
+
+db.pokemons.aggregate ([
+  {
+	$project: {
+	  _id: false, nombre: true, peso_kg: true
+	}
+   }, 
+	{ $addFields: {
+	    fechahoy: new Date()
+	}
+   },
+	{ $ set: {
+
+		avg
+
+])
+
+----> Realiza lo mismo con Scores
+
+db.pokemons.aggregate([
+   {
+     $match:{
+         scores: { $exists:true }
+     }
+   }, 
+   {
+       $project:{
+         _id: false, nombre:true, scores: true, elemento: true, peso_kg: true
+       }
+    },
+    {
+      $set:{
+         suma: { $sum: '$scores'}
+      }  
+
+    },
+
+    {
+      $set:{
+         avg: { $avg: '$scores'}
+      }  
+
+    },
+    {
+      $project:{
+        fullName: {
+          $concat: ['$nombre', '--', '$elemento']
+        },
+        peso_kg: true
+      }
+   
+    }
+])
+
+----> Agregar otro campo que va a hacer una proyección con $concat
+db.pokemons.aggregate([
+   {
+     $match:{
+         scores: { $exists:true }
+     }
+   }, 
+   {
+       $project:{
+         _id: false, nombre:true, scores: true, elemento: true, peso_kg: true
+       }
+    },
+    {
+      $set:{
+         suma: { $sum: '$scores'}
+      }  
+
+    },
+
+    {
+      $set:{
+         avg: { $avg: '$scores'}
+      }  
+
+    },
+    {
+      $project:{
+        fullName: {
+          $concat: ['$nombre', '--', '$elemento']
+        },
+        peso_kg: true
+      }
+   
+    }
+])
+
+6. Consulta para agrupación por id
+
+db.pokemons.aggregate([
+   {
+     $group:{
+      _id: '$elemento'
+     }   
+   }
+])
+
+7. Consulta de agrupación por elemento 
+
+db.pokemons.aggregate([
+   {
+     $group:{
+      _id: '$elemento'
+      total: { $sum: 1 }
+     }   
+   }
+])
+
+
+8. Consulta que agrupa por elemento y los cuenta
+
+db.pokemons.aggregate([
+   {
+     $group:{
+      _id: '$elemento',
+      total: { $sum: 1 }
+     }   
+   },
+   {
+     $sort:{
+       total: 1
+     }
+   }
+  
+])
+
+9. Consulta
+
+db.pokemons.aggregate([
+   {
+     $group:{
+      _id: '$elemento',
+      total: { $sum: 1 }
+     }   
+   },
+   {
+     $sort:{
+       total: -1
+     }
+   }
+  
+])
+
+10. Consulta 
+
+
+
+
+
+		
